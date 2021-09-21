@@ -2,14 +2,14 @@ using System;
 
 namespace BankingApp
 {
-    public class Savings: User
+    public class Savings: Account
     {
         private double SavingsBalance;
         private double InterestRate = 1.2;
         private int NumOfYears;
         public override void CreateAccount(){
-          string s = $"Account belongs to {Name} and initial balance is ${InitialBalance}."; 
-          Console.WriteLine(s);
+          string savingsAccount = $"Account belongs to {Name} and initial balance is ${InitialBalance}."; 
+          Console.WriteLine(savingsAccount);
         }
         public void Forecast(int NumOfYears){
           

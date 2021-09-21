@@ -2,7 +2,7 @@ using System;
 
 namespace BankingApp
 {
-    public abstract class User
+    public abstract class Account
     {
         public string Name;
         public double InitialBalance;
