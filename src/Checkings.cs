@@ -2,83 +2,83 @@ using System;
 
 namespace BankingApp
 {
-    public class Checkings : Account
+  public class Checkings : Account
+  {
+    private double _checkingFunds = 0;
+    private bool _withdrawalStatus = false;
+    private int _failureCounter = 0;
+    private const int _penaltyFee = 50;
+    private string _date = "09/20/2021";
+    private string _transactionType = "";
+    private double _moneyFlow = 0;
+    private string _statusFlow = "";
+    private bool _accountFlag = true;
+
+    public override void CreateAccount()
     {
-        private double CheckingFunds = 0;
-        private bool WithdrawalStatus = false;
-        private int FailureCounter = 0;
-        private const int PenaltyFee = 50;
-        private string Date = "09/20/2021";
-        private string TransactionType = "";
-        private double MoneyFlow = 0;
-        private string StatusFlow = "";
-        private bool AccountFlag = true;
-
-        public override void CreateAccount()
-        {
-            string checkingAccount = $"Account belongs to {Name} and initial balance is ${InitialBalance}.";
-            Console.WriteLine(checkingAccount);
-        }
-        public void Deposit(double DepositAmount)
-        {
-            if (AccountFlag)
-            {
-                if (CheckingFunds == 0)
-                {
-                    TransactionType = "Inital Deposit";
-                    StatusFlow = "Success";
-                    CheckingFunds = InitialBalance + CheckingFunds;
-                    MoneyFlow=CheckingFunds;
-                }
-                else
-                {
-                    MoneyFlow = DepositAmount;
-                    CheckingFunds += DepositAmount;
-                    StatusFlow = "Success";
-                    TransactionType = "Deposit";
-                }
-            }
-        }
-        public void Withdraw(double WithdrawAmount)
-        {
-            if (AccountFlag)
-            {
-                if (CheckingFunds - WithdrawAmount > 0)
-                {
-                    MoneyFlow = WithdrawAmount;
-                    CheckingFunds = CheckingFunds - WithdrawAmount;
-                    WithdrawalStatus = true;
-                }
-                else if (WithdrawAmount > CheckingFunds)
-                {
-                    MoneyFlow = PenaltyFee;
-                    StatusFlow = "Failed";
-                    CheckingFunds = CheckingFunds - PenaltyFee;
-                    TransactionType = "Fee";
-                    Console.WriteLine($"Insuffient funds! Checking Balance: {CheckingFunds}");
-                    FailureCounter += 1;
-                    if (FailureCounter == 3)
-                    {
-                        NukeAccount();
-                    }
-                }
-
-            }
-        }
-        public void GetTransactionHistory()
-        {
-            if (AccountFlag)
-            {
-                Console.WriteLine($"{Name}, {Date}, {TransactionType}, {MoneyFlow.ToString("C2")}, {StatusFlow}, {CheckingFunds.ToString("C2")}");
-            }
-        }
-        public void NukeAccount()
-        {
-            {
-                AccountFlag = false;
-                Console.WriteLine("Your Account has been terminated.");
-
-            }
-        }
+      string checkingAccount = $"Account belongs to {Name} and initial balance is ${InitialBalance}.";
+      Console.WriteLine(checkingAccount);
     }
+    public void Deposit(double DepositAmount)
+    {
+      if (_accountFlag)
+      {
+        if (_checkingFunds == 0)
+        {
+          _transactionType = "Inital Deposit";
+          _statusFlow = "Success";
+          _checkingFunds = InitialBalance + _checkingFunds;
+          _moneyFlow = _checkingFunds;
+        }
+        else
+        {
+          _moneyFlow = DepositAmount;
+          _checkingFunds += DepositAmount;
+          _statusFlow = "Success";
+          _transactionType = "Deposit";
+        }
+      }
+    }
+    public void Withdraw(double WithdrawAmount)
+    {
+      if (_accountFlag)
+      {
+        if (_checkingFunds - WithdrawAmount > 0)
+        {
+          _moneyFlow = WithdrawAmount;
+          _checkingFunds = _checkingFunds - WithdrawAmount;
+          _withdrawalStatus = true;
+        }
+        else if (WithdrawAmount > _checkingFunds)
+        {
+          _moneyFlow = _penaltyFee;
+          _statusFlow = "Failed";
+          _checkingFunds = _checkingFunds - _penaltyFee;
+          _transactionType = "Fee";
+          Console.WriteLine($"Insuffient funds! Checking Balance: {_checkingFunds}");
+          _failureCounter += 1;
+          if (_failureCounter == 3)
+          {
+            NukeAccount();
+          }
+        }
+
+      }
+    }
+    public void GetTransactionHistory()
+    {
+      if (_accountFlag)
+      {
+        Console.WriteLine($"{Name}, {_date}, {_transactionType}, {_moneyFlow.ToString("C2")}, {_statusFlow}, {_checkingFunds.ToString("C2")}");
+      }
+    }
+    public void NukeAccount()
+    {
+      {
+        _accountFlag = false;
+        Console.WriteLine("Your Account has been terminated.");
+
+      }
+    }
+  }
 }
